@@ -1,55 +1,55 @@
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Calculator extends JFrame {
 
-	static JLabel screen;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6858853048017749183L;
 
-	String text = "";
+	static JLabel screen;
 
 	Calculator() {
 		System.out.println("Hello World");
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
 		this.setTitle("Calculator");
-		this.setLayout(null);
 
 		// SCREEN
 		// ################################################################
 		screen = new JLabel();
-//		screen.setBackground(Color.yellow);
-		screen.setForeground(Color.white);
-		screen.setFont(new Font("MV Boli", Font.PLAIN, 35));
+		screen.setOpaque(true);
+		screen.setPreferredSize(new Dimension(500, 100));
+		screen.setFont(new Font("MV Boli", Font.PLAIN, 45));
 
-		// PANEL
+		// SCREEN PANEL
 		// ################################################################
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.black);
-		panel.setBounds(0, 0, 500, 100);
-		panel.setPreferredSize(new Dimension(500, 100));
-		panel.add(screen);
+		JPanel screenPanel = new JPanel();
+		screenPanel.setPreferredSize(new Dimension(500, 100));
+		screenPanel.add(screen);
 
 		// KEYPAD
 		// ################################################################
 		Keypad keypad = new Keypad();
 
+		// PANEL
+		// ################################################################
+		JPanel panel = new JPanel();
+		panel.setPreferredSize(new Dimension(500, 700));
+		panel.add(screenPanel);
+		panel.add(keypad);
+
 		// FRAME
 		// ################################################################
-		this.add(keypad);
 		this.add(panel);
 
-		this.setSize(500, 600);
-//		this.pack();
-//		this.setResizable(false);
+		this.pack();
+		this.setResizable(false);
 		this.setVisible(true);
 	}
 

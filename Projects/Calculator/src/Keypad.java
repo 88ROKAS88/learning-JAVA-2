@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,6 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class Keypad extends JPanel implements ActionListener {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3208473325890464485L;
 
 	JButton btnEquals;
 	JButton btn7;
@@ -19,17 +25,20 @@ public class Keypad extends JPanel implements ActionListener {
 	JButton btn2;
 	JButton btn3;
 	JButton btn0;
+	JButton btn00;
 	JButton btnPlus;
 	JButton btnMinus;
 	JButton btnDivide;
 	JButton btnMultiply;
 	JButton btnC;
+	JButton btnClear;
+	JButton btnComma;
 
 	Keypad() {
 
 		this.setBackground(Color.green);
-		this.setLayout(new GridLayout(4, 4)); // layout manager (rows,columns,horizontal margin,vertical margin)
-		this.setBounds(0, 100, 500, 500);
+		this.setLayout(new GridLayout(5, 4)); // layout manager (rows,columns,horizontal margin,vertical margin)
+		this.setPreferredSize(new Dimension(500, 600));
 
 		btn7 = new JButton("7");
 		btn7.addActionListener(this);
@@ -79,40 +88,49 @@ public class Keypad extends JPanel implements ActionListener {
 		btnMultiply.addActionListener(this);
 		this.add(btnMultiply);
 
-		btnC = new JButton("C");
-		btnC.addActionListener(this);
-		this.add(btnC);
+		btn00 = new JButton("00");
+		btn00.addActionListener(this);
+		this.add(btn00);
 
 		btn0 = new JButton("0");
 		btn0.addActionListener(this);
 		this.add(btn0);
 
-		btnEquals = new JButton("=");
-		btnEquals.addActionListener(this);
-		this.add(btnEquals);
+		btnComma = new JButton(".");
+		btnComma.addActionListener(this);
+		this.add(btnComma);
 
 		btnDivide = new JButton("/");
 		btnDivide.addActionListener(this);
 		this.add(btnDivide);
+
+		btnClear = new JButton("C");
+		btnClear.addActionListener(this);
+		this.add(btnClear);
+
+		this.add(new JButton(" "));
+
+		this.add(new JButton(" "));
+
+		btnEquals = new JButton("=");
+		btnEquals.addActionListener(this);
+		this.add(btnEquals);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+
 		if (e.getSource() == btnDivide) {
-//			text += "/";
 			Compute.chooseAction('/');
 		} else if (e.getSource() == btn0) {
-//			text += "0";
 			Compute.addNumber("0");
+		} else if (e.getSource() == btn00) {
+			Compute.addNumber("00");
 		} else if (e.getSource() == btn1) {
-//			text += "1";
 			Compute.addNumber("1");
 		} else if (e.getSource() == btn2) {
-//			text += "2";
 			Compute.addNumber("2");
 		} else if (e.getSource() == btn3) {
-//			text += "3";
 			Compute.addNumber("3");
 		} else if (e.getSource() == btn4) {
 			Compute.addNumber("4");
@@ -134,16 +152,10 @@ public class Keypad extends JPanel implements ActionListener {
 			Compute.chooseAction('-');
 		} else if (e.getSource() == btnMultiply) {
 			Compute.chooseAction('X');
-		} else if (e.getSource() == btnC) {
-			Compute.current = "";
-			Compute.display();
+		} else if (e.getSource() == btnClear) {
+			Compute.clear();
 		} else if (e.getSource() == btnEquals) {
-			if (Compute.num1 != 0 && Compute.current.length() > 0) {
-				Compute.num2 = Integer.valueOf(Compute.current);
-				Compute.calculate();
-				Compute.action = ' ';
-				Compute.display();
-			}
+			Compute.equals();
 		}
 	}
 

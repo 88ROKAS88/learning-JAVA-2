@@ -17,6 +17,15 @@ public class Compute {
 		}
 	}
 
+	public static void clear() {
+		if (current != "") {
+			Compute.current = "";
+		} else {
+			num1 = 0;
+		}
+		Compute.display();
+	}
+
 	public static void calculate() {
 		switch (action) {
 		case '+':
@@ -42,6 +51,16 @@ public class Compute {
 			current = "";
 			display();
 			break;
+		}
+	}
+
+	public static void equals() {
+		if (num1 != 0 && current.length() > 0) {
+			num2 = Integer.valueOf(current);
+			current = "";
+			calculate();
+			action = ' ';
+			display();
 		}
 	}
 
