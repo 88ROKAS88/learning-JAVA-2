@@ -8,18 +8,18 @@ public class Game {
 
 	static int xCount = 0;
 	static int oCount = 0;
+	static int turn = 0;
+	static boolean lastTurn = false;
+	static boolean over = false;
 
-//	static boolean more() {
-//		
-//	}
 	static void countmoves() {
 		Game.xCount = 0;
 		Game.oCount = 0;
+		Game.lastTurn = false;
 		for (int i = 0; i < 8; i++) {
 			int x = 0;
 			int o = 0;
 			for (int j = 0; j < 3; j++) {
-
 				if (Game.board[winConditions[i][j]] == "X") {
 					x++;
 				}
@@ -27,11 +27,16 @@ public class Game {
 					o++;
 				}
 			}
-//			System.out.println(i + ") X:" + x + " O:" + o);
+			if(Game.turn>4 && !Game.over) {
+				Game.over = true;
+				System.out.println("DRAW");
+			}
 			if (x > 2) {
+				Game.over = true;
 				System.out.println("YOU WIN");
 			}
 			if (o > 2) {
+				Game.over = true;
 				System.out.println("YOU LOST");
 			}
 			if (x > Game.xCount) {
@@ -40,7 +45,9 @@ public class Game {
 			if (o > Game.oCount) {
 				Game.oCount = o;
 			}
+			if (o > 1 && x == 0) {
+				Game.lastTurn = true;
+			}
 		}
-//		System.out.println("bx:"+bx+" bo:"+bo);
 	}
 }

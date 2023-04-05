@@ -34,18 +34,23 @@ public class Keypad extends JPanel implements ActionListener {
 
 			// MARK BUTTON
 			((AbstractButton) e.getSource()).setText("X");
-			
+
 			// REGISTER MOVE
 			for (int i = 0; i < 9; i++) {
-				if (e.getSource() == buttons[i]) {
-					Game.board[i]="X";
-					System.out.println(i);
+				if (e.getSource() == buttons[i] && !Game.over) {
+					Game.board[i] = "X";
+					Game.turn++;
+//					System.out.println(i);
 //					System.out.println(Game.winConditions[0][2]);
-					Game.countmoves();
-					Oponent.takeTurn();
+//					Game.countmoves();
+					if (Oponent.takeTurn()) {
+						System.out.println("True");
+						Game.countmoves();
+					}
+					;
 				}
 			}
-			
+
 		}
 	}
 
