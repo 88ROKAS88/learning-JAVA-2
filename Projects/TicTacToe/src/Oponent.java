@@ -44,7 +44,7 @@ public class Oponent {
 
 	static boolean takeTurn() {
 		Game.countmoves();
-		System.out.println("Turn: "+Game.turn);
+		System.out.println("Turn: " + Game.turn);
 		for (int i = 0; i < 8; i++) {
 			int x = 0;
 			int o = 0;
@@ -57,39 +57,35 @@ public class Oponent {
 				}
 			}
 
+			// 1) FINISH THE GAME
 			if (o > 1 && Game.oCount > 1 && x == 0) {
 				System.out.println("Oponent is making a last move");
-				if (Game.board[Game.winConditions[i][0]] != "O") {
-
-					return Oponent.check(Game.winConditions[i][0]);
-
-				} else if (Game.board[Game.winConditions[i][1]] != "O") {
-					return Oponent.check(Game.winConditions[i][1]);
-
-				} else {
-					return Oponent.check(Game.winConditions[i][2]);
-
-				}
-			} else if (x > 1 && Game.xCount > 1 && Game.lastTurn == false) {
+				return Oponent.findSquare("O", i);
+				// 2) PREVENT HUMAN FROM WINNING
+			} else if (x > 1 && Game.xCount > 1 && !Game.lastTurn) {
 				if (notMarkedInRow("O", i)) {
 					System.out.println("Oponent is preventing your win");
 					return Oponent.findSquare("X", i);
 				}
+				// 3) GET MIDDLE SQUARE
 			} else if (Game.board[4] != "X" && Game.board[4] != "O") {
 				Oponent.mark(4);
 				return true;
-			} else if (Game.oCount == 1 && Game.xCount < 2) {
-				if (notMarkedInRow("X", i)) {
-					System.out.println("Oponent is making a second move");
-					return Oponent.findSquare("O", i);					
-				}
+				// 4) MAKE FIRST MOVE
 			} else if (Game.oCount == 0) {
 				System.out.println("Oponent is making a first move");
-				return Oponent.check(0);
+				return Oponent.findSquare("X", i);
+				// 5) MAKE MOVE
+			} else if (x == 0 && !Game.lastTurn && !Game.preventWin) {
+				System.out.println("Oponent is making a move");
+				if (notMarkedInRow("X", i)) {
+					return Oponent.findSquare("O", i);
+				}
 			} else {
 //				System.out.println(i + " Loop -> skip to next");
 			}
 		}
+		System.out.println("oponent error -> cant find move");
 
 		return false;
 	}

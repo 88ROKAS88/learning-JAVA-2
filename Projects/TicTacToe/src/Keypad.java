@@ -22,32 +22,31 @@ public class Keypad extends JPanel implements ActionListener {
 			buttons[i] = new JButton("");
 			buttons[i].setFont(new Font("MV Boli", Font.PLAIN, 45));
 			buttons[i].addActionListener(this);
-//			buttons[i]
 			this.add(buttons[i]);
 		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-//		System.out.println(((AbstractButton) e.getSource()).getText());
-		if (((AbstractButton) e.getSource()).getText() != "X" && ((AbstractButton) e.getSource()).getText() != "O") {
+
+		// CHECK IF SQUARE IS EMPTY AND GAME IS NOT OVER
+		if (((AbstractButton) e.getSource()).getText() != "X" && ((AbstractButton) e.getSource()).getText() != "O"
+				&& !Game.over) {
 
 			// MARK BUTTON
 			((AbstractButton) e.getSource()).setText("X");
 
 			// REGISTER MOVE
 			for (int i = 0; i < 9; i++) {
-				if (e.getSource() == buttons[i] && !Game.over) {
+				if (e.getSource() == buttons[i]) {
 					Game.board[i] = "X";
 					Game.turn++;
-//					System.out.println(i);
-//					System.out.println(Game.winConditions[0][2]);
-//					Game.countmoves();
 					if (Oponent.takeTurn()) {
-						System.out.println("True");
 						Game.countmoves();
+					} else {
+						System.out.println("take turn return false");
 					}
-					;
+
 				}
 			}
 

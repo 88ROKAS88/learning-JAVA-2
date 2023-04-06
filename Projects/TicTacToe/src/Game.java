@@ -10,12 +10,14 @@ public class Game {
 	static int oCount = 0;
 	static int turn = 0;
 	static boolean lastTurn = false;
+	static boolean preventWin = false;
 	static boolean over = false;
 
 	static void countmoves() {
 		Game.xCount = 0;
 		Game.oCount = 0;
 		Game.lastTurn = false;
+		Game.preventWin = false;
 		for (int i = 0; i < 8; i++) {
 			int x = 0;
 			int o = 0;
@@ -27,7 +29,7 @@ public class Game {
 					o++;
 				}
 			}
-			if(Game.turn>4 && !Game.over) {
+			if (Game.turn > 4 && !Game.over) {
 				Game.over = true;
 				System.out.println("DRAW");
 			}
@@ -44,6 +46,9 @@ public class Game {
 			}
 			if (o > Game.oCount) {
 				Game.oCount = o;
+			}
+			if (x > 1 && o == 0) {
+				Game.preventWin = true;
 			}
 			if (o > 1 && x == 0) {
 				Game.lastTurn = true;
