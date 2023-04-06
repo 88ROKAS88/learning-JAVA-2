@@ -55,4 +55,19 @@ public class Game {
 			}
 		}
 	}
+	
+	static void newGame() {
+		// Clean values
+		Game.turn = 0;
+		Game.over = false;
+		
+		for (int i = 0; i < 9; i++) {
+			
+				Game.board[i] = "";
+				
+				Keypad.buttons[i].setText("");
+				
+		}
+		
+	}
 }
