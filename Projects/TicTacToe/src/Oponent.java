@@ -85,8 +85,15 @@ public class Oponent {
 //				System.out.println(i + " Loop -> skip to next");
 			}
 		}
+		System.out.println("Oponent is making any move");
+		// make any move
+		for(int i=0 ; i<8;i++) {
+			if(Oponent.check(i)) {
+				return true;
+			}
+		}
+		
 		System.out.println("oponent error -> cant find move");
-
 		return false;
 	}
 }
