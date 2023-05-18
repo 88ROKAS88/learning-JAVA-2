@@ -12,8 +12,6 @@ import javax.swing.JPanel;
 
 public class Snake extends JFrame implements KeyListener {
 
-	static int snakeBody = 45;
-	static int direction = 0;
 
 	static JPanel grid[] = new JPanel[101];
 
@@ -36,7 +34,8 @@ public class Snake extends JFrame implements KeyListener {
 			grid[i].setBackground(Color.black);
 			panel.add(grid[i]);
 		}
-		grid[snakeBody].setBackground(Color.red);
+		SnakeBody.location[0]=45;
+		grid[SnakeBody.location[0]].setBackground(Color.red);
 		this.add(panel);
 
 		this.pack();
@@ -49,53 +48,40 @@ public class Snake extends JFrame implements KeyListener {
 		TimerTask task = new TimerTask() {
 			@Override
 			public void run() {
-				System.out.println("Tic ! " + snakeBody);
+				System.out.println("Tic ! " + SnakeBody.location);
 				int movement = 0;
-				if (direction == 37) {
+				if (SnakeBody.direction == 37) {
 					movement = -1;
-					if (snakeBody % 10 == 1) {
+					if (SnakeBody.location[0] % 10 == 1) {
 						movement += 10;
 					}
 				}
-				if (direction == 39) {
+				if (SnakeBody.direction == 39) {
 					movement = 1;
-					if (snakeBody % 10 == 0) {
+					if (SnakeBody.location[0] % 10 == 0) {
 						movement += -10;
 					}
 				}
-				if (direction == 38) {
+				if (SnakeBody.direction == 38) {
 					movement = -10;
-					if (snakeBody <= 10) {
+					if (SnakeBody.location[0] <= 10) {
 						movement += 100;
 					}
 				}
-				if (direction == 40) {
+				if (SnakeBody.direction == 40) {
 					movement = 10;
-					if (snakeBody > 90) {
+					if (SnakeBody.location[0] > 90) {
 						movement += -100;
 					}
 				}
-				System.out.println("Tac ! " + (snakeBody + movement));
-				drawSnakeBody(movement);
+				System.out.println("Tac ! " + (SnakeBody.location[0] + movement));
+				SnakeBody.drawSnakeBody(movement);
 			}
 		};
 		// create fruit
 		fruit = createFruit();
 
 		timer.scheduleAtFixedRate(task, 0, 1000); // (task , time or delay of first instance, how often repeat)
-	}
-
-	static void drawSnakeBody(int movement) {
-		// remove old location
-		grid[snakeBody].setBackground(Color.black);
-		// calculate new location
-		snakeBody += movement;
-		// add new location
-		grid[snakeBody].setBackground(Color.red);
-		// fruit
-		if (snakeBody == fruit) {
-			fruit = createFruit();
-		}
 	}
 
 	static int createFruit() {
@@ -117,7 +103,7 @@ public class Snake extends JFrame implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		System.out.println("You released key code: " + e.getKeyCode());
 		if (e.getKeyCode() == 37 || e.getKeyCode() == 39 || e.getKeyCode() == 38 || e.getKeyCode() == 40) {
-			direction = e.getKeyCode();
+			SnakeBody.direction = e.getKeyCode();
 		}
 	}
 
