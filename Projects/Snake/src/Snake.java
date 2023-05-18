@@ -48,7 +48,6 @@ public class Snake extends JFrame implements KeyListener {
 		TimerTask task = new TimerTask() {
 			@Override
 			public void run() {
-				System.out.println("Tic ! " + SnakeBody.location);
 				int movement = 0;
 				if (SnakeBody.direction == 37) {
 					movement = -1;
@@ -74,7 +73,6 @@ public class Snake extends JFrame implements KeyListener {
 						movement += -100;
 					}
 				}
-				System.out.println("Tac ! " + (SnakeBody.location[0] + movement));
 				SnakeBody.drawSnakeBody(movement);
 			}
 		};
@@ -101,7 +99,6 @@ public class Snake extends JFrame implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("You released key code: " + e.getKeyCode());
 		if (e.getKeyCode() == 37 || e.getKeyCode() == 39 || e.getKeyCode() == 38 || e.getKeyCode() == 40) {
 			SnakeBody.direction = e.getKeyCode();
 		}
