@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -15,6 +16,8 @@ public class Snake extends JFrame implements KeyListener {
 	static int direction = 0;
 
 	static JPanel grid[] = new JPanel[101];
+
+	static int fruit;
 
 	Snake() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,6 +79,9 @@ public class Snake extends JFrame implements KeyListener {
 				drawSnakeBody(movement);
 			}
 		};
+		// create fruit
+		fruit = createFruit();
+
 		timer.scheduleAtFixedRate(task, 0, 1000); // (task , time or delay of first instance, how often repeat)
 	}
 
@@ -86,6 +92,19 @@ public class Snake extends JFrame implements KeyListener {
 		snakeBody += movement;
 		// add new location
 		grid[snakeBody].setBackground(Color.red);
+		// fruit
+		if (snakeBody == fruit) {
+			fruit = createFruit();
+		}
+	}
+
+	static int createFruit() {
+		Random rand = new Random();
+		// Obtain a number between [1 - 100].
+		int newFruit = rand.nextInt(100) + 1;
+		// Draw fruit
+		grid[newFruit].setBackground(Color.green);
+		return newFruit;
 	}
 
 	@Override
