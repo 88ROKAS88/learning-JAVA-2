@@ -16,6 +16,11 @@ public class Snake extends JFrame implements KeyListener {
 
 	static int fruit;
 
+	// Timer Task
+	static Timer timer = new Timer();
+
+	static TimerTask task = new MyTask();
+
 	Snake() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
@@ -40,11 +45,6 @@ public class Snake extends JFrame implements KeyListener {
 		this.pack();
 		this.setResizable(false);
 		this.setVisible(true);
-
-		// Timer Task
-		Timer timer = new Timer();
-
-		TimerTask task = new MyTask();
 
 		// create fruit
 		fruit = createFruit();

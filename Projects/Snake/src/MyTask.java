@@ -4,6 +4,7 @@ public class MyTask extends TimerTask {
 
 	@Override
 	public void run() {
+		
 		int movement = 0;
 		if (SnakeBody.direction == 37) {
 			movement = -1;
@@ -30,7 +31,10 @@ public class MyTask extends TimerTask {
 			}
 		}
 		SnakeBody.drawSnakeBody(movement);
-		
+		if(Collision.check()) {
+			System.out.println("COLLISION");
+			Snake.task.cancel();
+		}
 	}
 
 }
