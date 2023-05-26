@@ -17,19 +17,15 @@ import javax.swing.JPanel;
 
 public class Snake extends JFrame implements KeyListener {
 
-	static JPanel grid[] = new JPanel[101];
-
-	static int fruit;
-
 	// Timer Task
 	static Timer timer = new Timer();
-
 	static TimerTask task = new MyTask();
 
 	Snake() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setTitle("Snake");
+		this.addKeyListener(this);
 
 		// MENU
 		// ################################################################
@@ -52,31 +48,17 @@ public class Snake extends JFrame implements KeyListener {
 		menubar.add(filemenu);
 		this.setJMenuBar(menubar);
 
-		// PANEL
+		// SNAKE MAP / WORLD
 		// ################################################################
-
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(10, 10, 1, 1)); // layout manager (rows,columns,horizontal margin,vertical
-														// margin)
-		panel.setPreferredSize(new Dimension(260, 260));
-		panel.setBackground(Color.white);
-		this.addKeyListener(this);
-
-		for (int i = 1; i < 101; i++) {
-			grid[i] = new JPanel();
-			grid[i].setBackground(Color.black);
-			panel.add(grid[i]);
-		}
-		SnakeBody.location[0] = 45;
-		grid[SnakeBody.location[0]].setBackground(Color.red);
-		this.add(panel);
+		SnakeMap snakeMap = new SnakeMap();
+		this.add(snakeMap);
 
 		this.pack();
 		this.setResizable(false);
 		this.setVisible(true);
 
 		// create fruit
-		fruit = createFruit();
+		SnakeMap.fruit = createFruit();
 
 		timer.scheduleAtFixedRate(task, 0, 1000); // (task , time or delay of first instance, how often repeat)
 	}
@@ -85,16 +67,16 @@ public class Snake extends JFrame implements KeyListener {
 		System.out.println("New Game");
 		// paint map in black
 		for (int i = 1; i < 101; i++) {
-			Snake.grid[i].setBackground(Color.black);
+			SnakeMap.grid[i].setBackground(Color.black);
 		}
 		// set and draw snake
 		SnakeBody.location[0] = 45;
-		Snake.grid[SnakeBody.location[0]].setBackground(Color.red);
+		SnakeMap.grid[SnakeBody.location[0]].setBackground(Color.red);
 		// set moving direction and length
 		SnakeBody.direction = 0;
 		SnakeBody.currentLength = 1;
 		// create new fruit
-		Snake.fruit = createFruit();
+		SnakeMap.fruit = createFruit();
 		// restart timer task
 		Snake.task.cancel();
 		timer = new Timer();
@@ -107,7 +89,7 @@ public class Snake extends JFrame implements KeyListener {
 		// Obtain a number between [1 - 100].
 		int newFruit = rand.nextInt(100) + 1;
 		// Draw fruit
-		grid[newFruit].setBackground(Color.green);
+		SnakeMap.grid[newFruit].setBackground(Color.green);
 		return newFruit;
 	}
 

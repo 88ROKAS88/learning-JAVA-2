@@ -12,18 +12,18 @@ public class SnakeBody {
 			SnakeBody.location[i ] = SnakeBody.location[i-1];
 		}
 		// fruit
-		if (SnakeBody.location[0]+movement == Snake.fruit) {
-			Snake.fruit = Snake.createFruit();
+		if (SnakeBody.location[0]+movement == SnakeMap.fruit) {
+			SnakeMap.fruit = Snake.createFruit();
 			SnakeBody.currentLength += 1;
 		} else {			
 			// remove old location
-			Snake.grid[SnakeBody.location[SnakeBody.currentLength ]].setBackground(Color.black);
+			SnakeMap.grid[SnakeBody.location[SnakeBody.currentLength ]].setBackground(Color.black);
 		}
 
 		// calculate new location
 		SnakeBody.location[0] += movement;
 		// add new location
-		Snake.grid[SnakeBody.location[0]].setBackground(Color.red);
+		SnakeMap.grid[SnakeBody.location[0]].setBackground(Color.red);
 
 	}
 
