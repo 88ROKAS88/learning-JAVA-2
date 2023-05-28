@@ -13,7 +13,7 @@ public class SnakeBody {
 		}
 		// fruit
 		if (SnakeBody.location[0]+movement == SnakeMap.fruit) {
-			SnakeMap.fruit = Snake.createFruit();
+			SnakeMap.fruit = Game.createFruit();
 			SnakeBody.currentLength += 1;
 		} else {			
 			// remove old location

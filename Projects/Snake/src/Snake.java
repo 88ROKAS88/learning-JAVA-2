@@ -38,7 +38,7 @@ public class Snake extends JFrame implements KeyListener {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if (e.getSource() == newGame) {
-					Snake.newGame();
+					Game.newGame();
 				}
 			}
 		});
@@ -58,39 +58,9 @@ public class Snake extends JFrame implements KeyListener {
 		this.setVisible(true);
 
 		// create fruit
-		SnakeMap.fruit = createFruit();
+		SnakeMap.fruit = Game.createFruit();
 
 		timer.scheduleAtFixedRate(task, 0, 1000); // (task , time or delay of first instance, how often repeat)
-	}
-
-	static void newGame() {
-		System.out.println("New Game");
-		// paint map in black
-		for (int i = 1; i < 101; i++) {
-			SnakeMap.grid[i].setBackground(Color.black);
-		}
-		// set and draw snake
-		SnakeBody.location[0] = 45;
-		SnakeMap.grid[SnakeBody.location[0]].setBackground(Color.red);
-		// set moving direction and length
-		SnakeBody.direction = 0;
-		SnakeBody.currentLength = 1;
-		// create new fruit
-		SnakeMap.fruit = createFruit();
-		// restart timer task
-		Snake.task.cancel();
-		timer = new Timer();
-		task = new MyTask();
-		timer.scheduleAtFixedRate(task, 0, 1000); // (task , time or delay of first instance, how often repeat)
-	}
-
-	static int createFruit() {
-		Random rand = new Random();
-		// Obtain a number between [1 - 100].
-		int newFruit = rand.nextInt(100) + 1;
-		// Draw fruit
-		SnakeMap.grid[newFruit].setBackground(Color.green);
-		return newFruit;
 	}
 
 	@Override
