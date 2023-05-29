@@ -1,19 +1,8 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 
 public class Snake extends JFrame implements KeyListener {
 
@@ -22,6 +11,8 @@ public class Snake extends JFrame implements KeyListener {
 	static TimerTask task = new MyTask();
 
 	Snake() {
+		// FRAME / WINDOW
+		// ################################################################
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setTitle("Snake");
@@ -29,30 +20,16 @@ public class Snake extends JFrame implements KeyListener {
 
 		// MENU
 		// ################################################################
-		JMenuBar menubar = new JMenuBar();
-		JMenuItem filemenu = new JMenu("File");
-		JMenuItem newGame = new JMenuItem("New Game");
-
-		newGame.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				if (e.getSource() == newGame) {
-					Game.newGame();
-				}
-			}
-		});
-		filemenu.setMnemonic(KeyEvent.VK_F); // set shortcut to Alt + F
-		newGame.setMnemonic(KeyEvent.VK_N); // set shortcut to N
-		filemenu.add(newGame);
-		menubar.add(filemenu);
-		this.setJMenuBar(menubar);
+		SnakeMenu snakeMenu = new SnakeMenu();
+		this.setJMenuBar(snakeMenu);
 
 		// SNAKE MAP / WORLD
 		// ################################################################
 		SnakeMap snakeMap = new SnakeMap();
 		this.add(snakeMap);
 
+		// FRAME / WINDOW
+		// ################################################################
 		this.pack();
 		this.setResizable(false);
 		this.setVisible(true);
