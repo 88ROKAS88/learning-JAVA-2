@@ -34,10 +34,9 @@ public class Snake extends JFrame implements KeyListener {
 		this.setResizable(false);
 		this.setVisible(true);
 
-		// create fruit
-		SnakeMap.fruit = Game.createFruit();
-
-		timer.scheduleAtFixedRate(task, 0, 1000); // (task , time or delay of first instance, how often repeat)
+		// START GAME
+		// ################################################################
+		Game.start();
 	}
 
 	@Override

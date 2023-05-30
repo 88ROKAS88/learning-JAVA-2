@@ -4,6 +4,24 @@ import java.util.Timer;
 
 public class Game {
 
+	static int createFruit() {
+		Random rand = new Random();
+		// Obtain a number between [1 - 100].
+		int newFruit = rand.nextInt(100) + 1;
+		// Draw fruit
+		SnakeMap.grid[newFruit].setBackground(Color.green);
+		return newFruit;
+	}
+
+	static void start() {
+		SnakeBody.location[0] = 45;
+		SnakeMap.grid[SnakeBody.location[0]].setBackground(Color.red);
+		SnakeMap.fruit = Game.createFruit();
+
+		Snake.timer.scheduleAtFixedRate(Snake.task, 0, 1000); // (task , time or delay of first instance, how often
+																// repeat)
+	}
+
 	static void newGame() {
 		System.out.println("New Game");
 		// paint map in black
@@ -22,16 +40,8 @@ public class Game {
 		Snake.task.cancel();
 		Snake.timer = new Timer();
 		Snake.task = new MyTask();
-		Snake.timer.scheduleAtFixedRate(Snake.task, 0, 1000); // (task , time or delay of first instance, how often repeat)
-	}
-
-	static int createFruit() {
-		Random rand = new Random();
-		// Obtain a number between [1 - 100].
-		int newFruit = rand.nextInt(100) + 1;
-		// Draw fruit
-		SnakeMap.grid[newFruit].setBackground(Color.green);
-		return newFruit;
+		Snake.timer.scheduleAtFixedRate(Snake.task, 0, 1000); // (task , time or delay of first instance, how often
+																// repeat)
 	}
 
 }

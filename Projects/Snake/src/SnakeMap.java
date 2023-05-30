@@ -22,8 +22,6 @@ public class SnakeMap extends JPanel {
 			grid[i] = new JPanel();
 			grid[i].setBackground(Color.black);
 			this.add(grid[i]);
-		}
-		SnakeBody.location[0] = 45;
-		grid[SnakeBody.location[0]].setBackground(Color.red);
+		}		
 	}
 }
