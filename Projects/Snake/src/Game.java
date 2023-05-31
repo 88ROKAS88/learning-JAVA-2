@@ -4,10 +4,23 @@ import java.util.Timer;
 
 public class Game {
 
+	static boolean onSnake(int newFruit) {
+		for (int i = 0; i < SnakeBody.currentLength; i++) {
+			if (SnakeBody.location[i] == newFruit) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	static int createFruit() {
 		Random rand = new Random();
-		// Obtain a number between [1 - 100].
-		int newFruit = rand.nextInt(100) + 1;
+		int newFruit;
+		do {
+			// Obtain a number between [1 - 100].
+			newFruit = rand.nextInt(100) + 1;
+			System.out.println(newFruit);
+		} while (Game.onSnake(newFruit));
 		// Draw fruit
 		SnakeMap.grid[newFruit].setBackground(Color.green);
 		return newFruit;
