@@ -26,13 +26,21 @@ public class Game {
 		return newFruit;
 	}
 
+	static void increaseDifficulty() {
+		Snake.task.cancel();
+		Snake.timer = new Timer();
+		Snake.task = new MyTask();
+		SnakeBody.speed -= 50;
+		Snake.timer.scheduleAtFixedRate(Snake.task, 0, SnakeBody.speed);
+	}
+
 	static void start() {
 		SnakeBody.location[0] = 45;
 		SnakeMap.grid[SnakeBody.location[0]].setBackground(Color.red);
 		SnakeMap.fruit = Game.createFruit();
 
-		Snake.timer.scheduleAtFixedRate(Snake.task, 0, 1000); // (task , time or delay of first instance, how often
-																// repeat)
+		Snake.timer.scheduleAtFixedRate(Snake.task, 0, SnakeBody.speed); // (task , time or delay of first instance, how
+																			// often repeat)
 	}
 
 	static void newGame() {
@@ -53,8 +61,8 @@ public class Game {
 		Snake.task.cancel();
 		Snake.timer = new Timer();
 		Snake.task = new MyTask();
-		Snake.timer.scheduleAtFixedRate(Snake.task, 0, 1000); // (task , time or delay of first instance, how often
-																// repeat)
+		SnakeBody.speed = 1000;
+		Snake.timer.scheduleAtFixedRate(Snake.task, 0, SnakeBody.speed);
 	}
 
 }
